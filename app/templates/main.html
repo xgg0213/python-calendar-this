@@ -7,5 +7,72 @@
 </head>
 <body>
     <h1>Calendar working</h1>
+    <form method="post" action="/">
+        {{ form.csrf_token }}
+    
+        <div>
+            {{ form.name.label }}<br>
+            {{ form.name(size=30) }}
+        </div>
+        
+        <div>
+            {{ form.start_date.label }}<br>
+            {{ form.start_date() }}
+        </div>
+        
+        <div>
+            {{ form.start_time.label }}<br>
+            {{ form.start_time() }}
+        </div>
+        
+        <div>
+            {{ form.end_date.label }} {{ form.end_date }}
+          
+            {% if form.end_date.errors %}
+              <ul class="errors">
+                {% for error in form.end_date.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        
+        <div>
+            {{ form.end_time.label }}<br>
+            {{ form.end_time() }}
+        </div>
+        
+        <div>
+            {{ form.description.label }}<br>
+            {{ form.description(rows=5, cols=30) }}
+        </div>
+        
+        <div>
+            {{ form.private.label }}<br>
+            {{ form.private() }}
+        </div>
+        
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    <table border="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.start_datetime.strftime("%H:%M") }}</td>
+                <td>{{ row.end_datetime.strftime("%H:%M") }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
